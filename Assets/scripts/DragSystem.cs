@@ -55,6 +55,8 @@ public class DragSystem : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (GameManger.instance.gameCompleted)
+            return;
         rb.isKinematic = true;
         mousePressDownPos = Input.mousePosition;
         startMousePosition = Camera.main.ScreenToWorldPoint(mousePressDownPos);
@@ -62,8 +64,12 @@ public class DragSystem : MonoBehaviour
         dragged = true;
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(1, startMousePosition);
-        GameManger.instance.gameStarted = true;
-
+        if (!GameManger.instance.gameStarted)
+        {
+            GameManger.instance.gameStarted = true;
+            Timer.instance.StartTimer();
+        }
+        
     }
     private void OnMouseUp()
     {

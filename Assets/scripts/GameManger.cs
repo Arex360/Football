@@ -38,14 +38,30 @@ public class GameManger : MonoBehaviour
             failText.text = _fail;
         }
     }
+    [System.Serializable]
+    public class EndScreen
+    {
+        public GameObject winScreen;
+        public GameObject loseScreen;
+        public void showWinScreen()
+        {
+            winScreen.SetActive(true);
+        }
+        public void showLoseScreen()
+        {
+            loseScreen.SetActive(true);
+        }
+    }
     public static GameManger instance;
     [SerializeField] private UI resultUI;
+    public EndScreen endScreen;
     public Transform keeperPosition;
-    private int noOfGoals;
-    private int noOfFails;
+    public int noOfGoals;
+    public int noOfFails;
     public bool ballCaught;
     public bool colliadable;
     public bool gameStarted;
+    public bool gameCompleted;
     void Start()
     {
         instance = this;
@@ -76,5 +92,9 @@ public class GameManger : MonoBehaviour
             noOfFails++;
             resultUI.setFail(noOfFails.ToString());
         }
+    }
+    public void RestartLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
