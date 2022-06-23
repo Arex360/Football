@@ -2618,6 +2618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c24728fd5078a2478b55dec7405357e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  confetti: {fileID: 6638951801069518268, guid: b6df7ce682b186546be12435e42d76d2, type: 3}
 --- !u!120 &1195178636
 LineRenderer:
   m_ObjectHideFlags: 0

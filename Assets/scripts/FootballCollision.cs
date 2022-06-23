@@ -5,6 +5,7 @@ using UnityEngine;
 public class FootballCollision : MonoBehaviour
 {
     private Rigidbody rigidbody;
+    public GameObject confetti;
     private void Awake()
     {
         rigidbody = this.GetComponent<Rigidbody>();
@@ -38,6 +39,7 @@ public class FootballCollision : MonoBehaviour
         {
             GameManger.instance.Success();
             GameManger.instance.colliadable = false;
+            GameObject effect =  Instantiate(confetti, this.transform.position, Quaternion.identity);
         }else
         {
             GameManger.instance.Fail();
