@@ -27,6 +27,8 @@ public class FootballCollision : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
             GameManger.instance.ballCaught = true;
             GameManger.instance.colliadable = false;
+            rigidbody.isKinematic = true;
+            this.transform.position = GameManger.instance.keeperPosition.position;
         }
     }
     private void OnTriggerEnter(Collider other)

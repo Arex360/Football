@@ -62,6 +62,7 @@ public class DragSystem : MonoBehaviour
         dragged = true;
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(1, startMousePosition);
+        GameManger.instance.gameStarted = true;
 
     }
     private void OnMouseUp()
@@ -98,5 +99,6 @@ public class DragSystem : MonoBehaviour
         rb.velocity = Vector3.zero;
         sphereCollider.material = physicMat;
         GameManger.instance.colliadable = true;
+        rb.isKinematic = false;
     } 
 }

@@ -7,6 +7,7 @@ public class GameManger : MonoBehaviour
     [System.Serializable]
     public class UI
     {
+        public GameObject instructionText;
         [SerializeField] private GameObject goalUI;
         [SerializeField] private GameObject failUI;
 
@@ -39,14 +40,23 @@ public class GameManger : MonoBehaviour
     }
     public static GameManger instance;
     [SerializeField] private UI resultUI;
+    public Transform keeperPosition;
     private int noOfGoals;
     private int noOfFails;
     public bool ballCaught;
     public bool colliadable;
+    public bool gameStarted;
     void Start()
     {
         instance = this;
         colliadable = true;
+    }
+    private void Update()
+    {
+        if (gameStarted)
+        {
+            resultUI.instructionText.SetActive(false);
+        }
     }
     public void Success()
     {

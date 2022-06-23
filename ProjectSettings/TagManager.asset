@@ -9,6 +9,7 @@ TagManager:
   - cage
   - keeper
   - boundry
+  - KeeperPoint
   layers:
   - Default
   - TransparentFX
