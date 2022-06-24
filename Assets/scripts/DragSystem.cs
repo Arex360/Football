@@ -125,6 +125,8 @@ public class DragSystem : MonoBehaviour
             return;
         rb.AddForce(new Vector3(Force.x, Force.y, Force.magnitude*zMultiplayer) * forceMultiplier);
         isShoot = true;
+        CameraManager.instance.enableSecondaryCam();
+        Invoke(nameof(resetView), 2f);
         Invoke(nameof(resetTransform), 5f);
     }
     private void OnDrawGizmos()
@@ -143,4 +145,8 @@ public class DragSystem : MonoBehaviour
         GameManger.instance.colliadable = true;
         rb.isKinematic = false;
     } 
+    private void resetView()
+    {
+        CameraManager.instance.enablePrimaryCam();
+    }
 }

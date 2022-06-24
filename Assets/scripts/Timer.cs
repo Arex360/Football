@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public static Timer instance;
@@ -30,6 +31,8 @@ public class Timer : MonoBehaviour
                 timerIsRunning = false;
                 if (!over)
                 {
+                    GameObject _slider = GameObject.FindObjectOfType<Slider>().gameObject;
+                    _slider.SetActive(false);
                     if(GameManger.instance.noOfGoals > GameManger.instance.noOfFails)
                     {
                         GameManger.instance.endScreen.showWinScreen();

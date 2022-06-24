@@ -42,10 +42,12 @@ public class FootballCollision : MonoBehaviour
             GameManger.instance.Success();
             GameManger.instance.colliadable = false;
             GameObject effect =  Instantiate(confetti, this.transform.position, Quaternion.identity);
+            CameraManager.instance.enablePrimaryCam();
         }else
         {
             GameManger.instance.Fail();
             GameManger.instance.colliadable = false;
+            CameraManager.instance.enablePrimaryCam();
         }
     }
 
