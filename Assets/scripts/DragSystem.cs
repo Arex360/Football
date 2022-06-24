@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class DragSystem : MonoBehaviour
 {
+    public Slider forceAdjuster;
     private Vector3 mousePressDownPos;
     private Vector3 mouseReleasePos;
     private Vector3 _mouseReleasePos;
@@ -25,6 +26,18 @@ public class DragSystem : MonoBehaviour
     public PhysicMaterial physicMat;
     private SphereCollider sphereCollider;
     private Vector3 defaultPosition;
+
+    // test
+    private float touchTimeStart;
+    private float touchTimeEnd;
+    private float interval;
+    private Vector3 startPos;
+    private Vector3 endPos;
+
+    public float throwForceinXY;
+    public float throwForceinZ;
+    private float forceMultiplier = 3;
+    public float zMultiplayer = 2.5f;
     private void Awake()
     {
         defaultPosition = this.transform.position;
@@ -39,6 +52,7 @@ public class DragSystem : MonoBehaviour
     }
     private void Update()
     {
+        forceMultiplier = 1f * forceAdjuster.value;
         if (dragged)
         {
             _mouseReleasePos = Input.mousePosition;
@@ -51,8 +65,30 @@ public class DragSystem : MonoBehaviour
                 lineRenderer.SetPosition(1, endMousePosition);
             }
         }
-       
+        // if you touch the screen
+        /*
+        bool startCondition = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
+        bool endCondition = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended;
+        if (Input.GetMouseButtonDown(0))
+        {
+            touchTimeStart = Time.time;
+            startPos = Input.mousePosition;
+            rb.isKinematic = true;
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            touchTimeEnd = Time.time;
+            interval = touchTimeEnd - touchTimeStart;
+            endPos = Input.mousePosition;
+            Vector3 direction = endPos - startPos;
+            rb.isKinematic = false;
+            sphereCollider.material = null;
+            rb.AddForce(-direction.x * throwForceinXY, -direction.y * throwForceinXY, throwForceinZ / interval);
+            Invoke(nameof(resetTransform), 5f);
+        }
+       */
     }
+
     private void OnMouseDown()
     {
         if (GameManger.instance.gameCompleted)
@@ -81,13 +117,13 @@ public class DragSystem : MonoBehaviour
         lineRenderer.enabled = false;
         sphereCollider.material = null;
     }
-    private float forceMultiplier = 3;
+   
     void Shoot(Vector3 Force)
     {
         trailRenderer.enabled = true;
         if (isShoot)
             return;
-        rb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceMultiplier);
+        rb.AddForce(new Vector3(Force.x, Force.y, Force.magnitude*zMultiplayer) * forceMultiplier);
         isShoot = true;
         Invoke(nameof(resetTransform), 5f);
     }
